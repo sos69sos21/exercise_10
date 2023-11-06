@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/sosa/Desktop/UA_Folder/exercise_10/exercise10_3",
+      "program": "/Users/sosa/Desktop/UA_Folder/exercise_10/exercise10_3/build/Debug/outDebug"
+    }
+  ]
+}

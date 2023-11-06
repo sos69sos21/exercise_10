@@ -86,7 +86,7 @@ int main(int argc , char *argv[])
 		write(connectedSocket, data, strlen(data));
 	}
 	
-
+	
 	if (bytesRead == 0)
 	{
 		printf("Recv returned 0, client disconnected.\n");

@@ -63,38 +63,41 @@ int main(int argc , char *argv[])
 	listen(listener, 3);
 	
 	printf("Waiting for incoming connections...\n");
-
+	// server update
+	while(1){
     // initialize the size variable to the size of the sockaddr_in struct.
 	addrLen = sizeof(struct sockaddr_in);	
 
 	//accept connection from an incoming client
-	connectedSocket = accept(listener, (struct sockaddr *)&clientAddr, (socklen_t*)&addrLen);
-	if (connectedSocket < 0)
-	{
-        printf("accept returned: %d, %s\n", connectedSocket, strerror(errno));
-		return 1;
-	}
-
-    pClientAddr = (struct sockaddr_in*)&clientAddr;
-    inet_ntop(AF_INET, &(pClientAddr->sin_addr), clientIp, INET_ADDRSTRLEN);
-	printf("Connection accepted from: %s\n", clientIp);
 	
-	// receive data from the client
-	while ((bytesRead = recv(connectedSocket, data, sizeof(data), 0)) > 0 )
-	{
-		// echo the string back to client
-		write(connectedSocket, data, strlen(data));
-	}
-	
+		connectedSocket = accept(listener, (struct sockaddr *)&clientAddr, (socklen_t*)&addrLen);
+		if (connectedSocket < 0)
+		{
+			printf("accept returned: %d, %s\n", connectedSocket, strerror(errno));
+			return 1;
+		}
 
-	if (bytesRead == 0)
-	{
-		printf("Recv returned 0, client disconnected.\n");
-		fflush(stdout);
-	}
-	else if (bytesRead == -1)
-	{
-		perror("Recv function return an error\n");
+		pClientAddr = (struct sockaddr_in*)&clientAddr;
+		inet_ntop(AF_INET, &(pClientAddr->sin_addr), clientIp, INET_ADDRSTRLEN);
+		printf("Connection accepted from: %s\n", clientIp);
+		
+		// receive data from the client
+		while ((bytesRead = recv(connectedSocket, data, sizeof(data), 0)) > 0 )
+		{
+			// echo the string back to client
+			write(connectedSocket, data, strlen(data));
+		}
+		
+
+		if (bytesRead == 0)
+		{
+			printf("Recv returned 0, client disconnected.\n");
+			fflush(stdout);
+		}
+		else if (bytesRead == -1)
+		{
+			perror("Recv function return an error\n");
+		}
 	}
 	
 	return 0;
